@@ -4,6 +4,8 @@ import TaskList from "./components/TodoList"
 
 import ListForm from "./components/TodoForm"
 
+import './components/Todo.css'
+
 const tasks = [
 
   {
@@ -77,7 +79,7 @@ class App extends React.Component {
   addTask = taskName => {
     const newTask = {
       name: taskName,
-      id: new Date(),
+      id: Date.now(),
       completed: false
     }
 
@@ -85,15 +87,28 @@ class App extends React.Component {
       tasks: [...this.state.tasks, newTask]
     })
   }
+
+
+
+  clearTask = className => {
+    this.setState({
+      tasks: this.state.tasks.filter(completedtask =>{
+        if(completedtask.className === "completed") {
+          return {
+            name: "",
+            id: "",
+            completed: true
+          }
+        }
+      })
+    })
+  }
   
   render() {
     return (
       <div className="App">
         <div className="header">
-          <h1>Welcome to your Todo App!</h1>
-        </div>
-        <div className="opener">
-          <h2 onClick={() => this.setState({})}>Tasks</h2>
+          <h1 onClick={() => this.setState({})}>Welcome to your Todo App!</h1>
           <ListForm addTask={this.addTask} />
         </div>
         <TaskList
