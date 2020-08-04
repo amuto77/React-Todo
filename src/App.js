@@ -90,16 +90,10 @@ class App extends React.Component {
 
 
 
-  clearTask = className => {
+  clearTask = _ => {
     this.setState({
-      tasks: this.state.tasks.filter(completedtask =>{
-        if(completedtask.className === "completed") {
-          return {
-            name: "",
-            id: "",
-            completed: true
-          }
-        }
+      tasks: this.state.tasks.filter(task =>{
+         return task.completed === false
       })
     })
   }
@@ -114,6 +108,7 @@ class App extends React.Component {
         <TaskList
           toggleTask={this.toggleTask}
           tasks={this.state.tasks}
+          clearTask = {this.clearTask}
         />
       </div>
     );
